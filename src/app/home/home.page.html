@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Precio BitCoint
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <div id="container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Valor BitCoint Ahora</ion-card-subtitle>
+        <ion-card-title>
+          <div *ngIf="viewBitcoint" class="value_bitcoint">
+            $ {{dateNow}} {{currency}}
+          </div>
+          <ion-spinner class="value_bitcoint" *ngIf="!viewBitcoint"></ion-spinner>
+          <ion-card-content>
+            <div>
+              Se actualizara en {{time}} segundos
+            </div>
+            <small>
+              <b>Última actualización: </b>{{lastDate}}
+            </small>
+            
+          </ion-card-content>
+        </ion-card-title>
+      </ion-card-header>
+    </ion-card>
+    <ion-card>
+      <ion-card-header *ngIf="viewLoadList">
+        <ion-card-title class="title-section">Valor BitCoint últimos 15 días</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <div *ngIf="!viewLoadList">
+          <ion-spinner class="title-section"></ion-spinner>
+          <div>
+            Cargando BitCoint últimos 15 dias
+          </div>
+        </div>
+        <ion-list *ngIf="viewLoadList">
+          <ion-item *ngFor="let item of listLastFifteenDays" (click)="loadByDate(item.item)">
+            <ion-label>
+              <small>{{item.date.split('T')[0]}}</small>
+              <div class="value_list">
+                $ {{item.info.amount}} {{item.info.currency}}
+              </div>
+            </ion-label>
+            <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
