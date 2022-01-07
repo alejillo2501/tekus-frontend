@@ -25,6 +25,8 @@ npm-debug.log*
 /.vscode
 /.angular
 /electron/node_modules
+/electron/dist
+/release-builds
 /coverage
 /dist
 /node_modules
