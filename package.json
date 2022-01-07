@@ -11,7 +11,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "electron:mac": "electron-packager ./electron TekusApp --overwrite --platform=darwin --arch=x64 --prune=true --out=release-builds",
-    "electron:win": "electron-packager ./electron TekusApp --overwrite --asar=true --platform=win32 --arch=ia32 --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Simons Electron App'"
+    "electron:win": "electron-packager ./electron TekusApp --overwrite --asar=true --platform=win32 --arch=ia32 --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Tekus Electron App'"
   },
   "private": true,
   "dependencies": {

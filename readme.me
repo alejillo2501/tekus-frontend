@@ -1,0 +1,43 @@
+TITULO: APP-PREUBA TekusApp
+AUTOR: ALEJANDRO LONDOÑO
+TIPO IDENTIDAD: CEDULA DE CIUDADANIA
+IDENTIDAD: 1017199593
+LOCALIDAD: COLOMBIA/ANTIOQUIA/MEDELLIN
+EMAIL: alejandro.minus@gmail.COLOMBIA
+
+INICIO: 
+
+PARA DESARROLLO:
+
+1. Ingresa a la carpeta principal (Tekus), abre la termina y ejecuta "npm install" para instalar todas las dependencias del frontend.
+2. Una vez instaladas las dependecias ingresa al directorio "electron" y abre otra terminal para nuevamente ejecutar el comando "npm install", ésto es para instalar las dependencia de electron.
+3. En caso de tener dificultades al desplegar el contenido del directorio "electron", volvemos al directorio de "Tekus", luego borramos la carpeta de electron y ejecutamos en la terminal primero "ionic build" y luego "npx cap add electron", esto nos creará un nuevo directorio con el aplicativo en electron.
+4. En caso de tomar el paso "3" debemos de ingresar a la ruta "electron/src/setup.ts" y en la linea 126 vamos a encontrar la constante "MainWindow", ésta la devemos de cambiar con los siguientes valores para poder abrir el aplicativo al lado derecho en la parte de arriba de la pantalla y con una medida de maximo 500px:
+
+this.MainWindow = new BrowserWindow({
+      icon,
+      show: false,
+      x: 1000,
+      y: 0,
+      width: 500,
+      height: this.mainWindowState.height,
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: true,
+        // Use preload to inject the electron varriant overrides for capacitor plugins.
+        // preload: join(app.getAppPath(), "node_modules", "@capacitor-community", "electron", "dist", "runtime", "electron-rt.js"),
+        preload: preloadPath,
+      },
+    });
+
+5. finalmente voviendo al directorio de "Tekus" abrimos la terminal y ejecutamos "npx cap open electron", nos abrira el aplicativo pero en este caso en modo desarrollo con las herramientas de desarrollo activas.
+6. Para exportar la App, desde la terminal del directorio "Tekus" ejecutamos:
+
+- Para MAC: "npm run electron:mac"
+- Para WINDOWS: "npm run electron:win"
+
+Ésto último nos creará una carpeta que se llama "release-builds" la cual contendrá el archivo ejecutable según la plataforma para la cual la exportamos sea MAC o WINDOWS.
+
+7. En caso de ejecutar pruebas unitarias en el directorio "Tekus" abrir la terminal y ejecutar "npm run test". Nos abrira una nueva ventana en el explorador que tengamos por defecto con las pruebas de testing en cuanto al FrontEnd.
+
+FIN
