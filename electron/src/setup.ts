@@ -258,7 +258,7 @@ export function setupContentSecurityPolicy(customScheme: string): void {
           electronIsDev
             //? `default-src ${customScheme}://* 'unsafe-inline' devtools://* 'unsafe-eval' data:`
             ?`default-src ${customScheme}://* 'unsafe-inline' devtools://* https://tekus-backend.vercel.app 'unsafe-eval' data:`
-            : `default-src ${customScheme}://* 'unsafe-inline' data:`,
+            : `default-src ${customScheme}://* 'unsafe-inline' devtools://* https://tekus-backend.vercel.app 'unsafe-eval' data:`,
             //: `default-src 'self'`,
         ],
       },
