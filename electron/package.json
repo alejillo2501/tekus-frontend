@@ -17,7 +17,9 @@
     "electron:start-live": "node ./live-runner.js",
     "electron:start": "npm run build && electron --inspect=5858 ./",
     "electron:pack": "npm run build && electron-builder build --dir -c ./electron-builder.config.json",
-    "electron:make": "npm run build && electron-builder build -c ./electron-builder.config.json -p always"
+    "electron:make": "npm run build && electron-builder build -c ./electron-builder.config.json -p always",
+    "electron:win": "electron-packager . app --platform win32 --arch x64 --out dist/",
+    "electron:win-installer": "electron-installer-windows --src dist/app-win32-x64/ --dest dist/installers"
   },
   "dependencies": {
     "@capacitor-community/electron": "^4.0.1",
@@ -31,6 +33,7 @@
   "devDependencies": {
     "electron": "~13.1.9",
     "electron-builder": "~22.11.7",
+    "electron-installer-windows": "^3.0.0",
     "electron-rebuild": "~2.3.5",
     "typescript": "~4.3.5"
   },

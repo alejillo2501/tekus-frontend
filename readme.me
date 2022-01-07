@@ -32,13 +32,35 @@ this.MainWindow = new BrowserWindow({
       },
     });
 
-5. finalmente voviendo al directorio de "Tekus" abrimos la terminal y ejecutamos "npx cap open electron", nos abrira el aplicativo pero en este caso en modo desarrollo con las herramientas de desarrollo activas.
-6. Para exportar la App, desde la terminal del directorio "Tekus" ejecutamos:
+    y Cambiar la funcion "setupContentSecurityPolicy" x por la siguiente:
 
-- Para MAC: "npm run electron:mac"
+    // Set a CSP up for our application based on the custom scheme
+    export function setupContentSecurityPolicy(customScheme: string): void {
+      session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+        callback({
+          responseHeaders: {
+            ...details.responseHeaders,
+            'Content-Security-Policy': [
+              electronIsDev
+                //? `default-src ${customScheme}://* 'unsafe-inline' devtools://* 'unsafe-eval' data:`
+                ?`default-src ${customScheme}://* 'unsafe-inline' devtools://* https://tekus-backend.vercel.app 'unsafe-eval' data:`
+                : `default-src ${customScheme}://* 'unsafe-inline' devtools://* https://tekus-backend.vercel.app 'unsafe-eval' data:`,
+                //: `default-src 'self'`,
+            ],
+          },
+        });
+      });
+    }
+
+    Esto con el fin de no tener despues problemas con el "Content-Security-Policy" ya que nuestra API la tenemos publicada en "https://tekus-backend.vercel.app".
+
+5. finalmente voviendo al directorio de "Tekus" abrimos la terminal y ejecutamos "npx cap open electron", nos abrira el aplicativo pero en este caso en modo desarrollo con las herramientas de desarrollo activas.
+6. Para exportar la App, desde la terminal del directorio "electron" ejecutamos:
+
+- Para MAC: "npm run electron:pack"
 - Para WINDOWS: "npm run electron:win"
 
-Ésto último nos creará una carpeta que se llama "release-builds" la cual contendrá el archivo ejecutable según la plataforma para la cual la exportamos sea MAC o WINDOWS.
+Ésto último nos creará una carpeta en la ruta "/electron/dist/" la cual contendrá el archivo ejecutable según la plataforma para la cual la exportamos sea MAC o WINDOWS.
 
 7. En caso de ejecutar pruebas unitarias en el directorio "Tekus" abrir la terminal y ejecutar "npm run test". Nos abrira una nueva ventana en el explorador que tengamos por defecto con las pruebas de testing en cuanto al FrontEnd.
 
